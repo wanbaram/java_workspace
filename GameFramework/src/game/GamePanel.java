@@ -11,6 +11,7 @@ package game;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -35,8 +36,18 @@ public class GamePanel extends JPanel implements Runnable{
 		//명단 관리자 생성
 		objectManager= new ObjectManager();
 		//주인공 등장 시키기
-		player=new Player(objectManager,100, 100, 50, 50);
+		player=new Player(objectManager,ObjectId.Player,100, 100, 50, 50);
 		objectManager.addObject(player);
+		Random r=new Random();
+		//적군 등장!!
+		for(int i=0; i<10;i++){
+			int x=r.nextInt((SCALE*HEIGHT-50)-50+1)+50;
+			int y=r.nextInt((SCALE*WIDTH+500)-50+1)+50;
+			
+			Enemy enemy=new Enemy(objectManager,ObjectId.Enemy, x, y, 30, 30);
+			objectManager.addObject(enemy);
+		}
+		
 		//패널과 키보드 리스너 연결
 		this.addKeyListener(new KeyBoard(player));
 		

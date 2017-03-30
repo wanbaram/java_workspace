@@ -7,23 +7,27 @@
 package game;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 abstract public class GameObject {
 	ObjectManager objectManager;
+	ObjectId id;//모든 게임 객체에 할당될 아이디
 	int x;
 	int y;
 	int width;
 	int height;
 	int velX;
 	int velY;
+	Rectangle rect;//교차 테스트에 써먹을 싸각형 객체
 	
-	public GameObject(ObjectManager objectManager,int x, int y, int width, int height) {
+	public GameObject(ObjectManager objectManager,ObjectId id,int x, int y, int width, int height) {
 		this.objectManager=objectManager;
 		this.x=x;
 		this.y=y;
+		this.id=id;//어떤 종류인지 구분하기 위함
 		this.width=width;
 		this.height=height;
-		
+		rect= new Rectangle(x, y, width, height);//모든 사물이 rect을 안고 태어남
 		
 	}
 	abstract public void tick();
